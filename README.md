@@ -1,5 +1,9 @@
 # JMH Playground
 
+TODO Add:
+* how run tests
+* install etc.
+
 Welcome to the JMH Playground! This repository serves as an experimental ground for evaluating the performance and
 memory consumption of Java code using JMH (Java Microbenchmark Harness).
 

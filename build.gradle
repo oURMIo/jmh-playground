@@ -1,5 +1,6 @@
 plugins {
   id 'java'
+  id 'com.github.johnrengelman.shadow' version '8.1.1'
   id 'application'
   id 'org.jetbrains.kotlin.jvm' version '1.8.22'
   id 'org.javamodularity.moduleplugin' version '1.8.12'
@@ -20,6 +21,7 @@ ext {
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
+  options.annotationProcessorPath = configurations.annotationProcessor
 }
 
 application {
@@ -67,4 +69,19 @@ jlink {
 
 jlinkZip {
   group = 'distribution'
+}
+
+shadowJar {
+  manifest {
+    attributes 'Main-Class': 'org.openjdk.jmh.Main'
+  }
+  mainClassName = 'org.openjdk.jmh.Main'
+}
+
+jar {
+  enabled = false
+}
+
+build {
+  dependsOn shadowJar
 }

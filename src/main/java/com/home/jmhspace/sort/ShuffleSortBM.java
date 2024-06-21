@@ -10,11 +10,11 @@ import org.openjdk.jmh.annotations.Warmup;
 
 public class ShuffleSortBM {
 
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-//    @Fork(value = 2)
-//    @Warmup(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
-//    @Measurement(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    @Fork(value = 2)
+    @Warmup(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
+    @Measurement(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
     public void shuffleSortBM() {
         int[] array = {76, 22, 10, 64, 89, 54, 2, 43};
 

@@ -11,11 +11,11 @@ import org.openjdk.jmh.annotations.Warmup;
 
 public class PrimeNumberBM {
 
-//    @Benchmark
-//    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-//    @Fork(value = 2)
-//    @Warmup(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
-//    @Measurement(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    @Fork(value = 2)
+    @Warmup(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
+    @Measurement(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
     public List<Integer> primeNumbersJava() {
         int n = 10;
         List<Integer> primes = new ArrayList<>();
