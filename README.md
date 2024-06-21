@@ -1,37 +1,46 @@
 # JMH Playground
 
-TODO Add:
-* how run tests
-* install etc.
+JMH Playground is a project designed for benchmarking various algorithms and code snippets.
+It utilizes Java 17 and above and is built using Gradle for easy dependency management and build automation.
 
-Welcome to the JMH Playground! This repository serves as an experimental ground for evaluating the performance and
-memory consumption of Java code using JMH (Java Microbenchmark Harness).
-
-# What is JMH?
+## What is JMH?
 
 JMH is a Java harness for building, running, and analyzing nano/micro/milli/macro benchmarks written in Java and other languages
 targeting the JVM. It is maintained by the OpenJDK project.
 
-# Getting Started
+## Getting Started
 
-To start benchmarking your Java code, follow these steps:
+### Prerequisites
 
-* Clone the Repository: Clone this repository to your local machine using the following command:
+Before you begin, ensure you have the following installed:
 
-```
+* Java Development Kit (JDK) version 17 or higher
+* Gradle version 6 or higher
+
+### Building the Project
+
+1. Clone the repository
+
+```shell
 git clone https://github.com/oURMIo/jmh-playground.git
+cd jmh-playground
 ```
 
-* Add Your Code: Inside the src/main/java directory, you'll find the package structure set up for your benchmarks. Add your Java
-  classes
-  containing the methods you want to benchmark under this directory.
+2. Build the project
 
-* Write Benchmarks: Write benchmarks using JMH annotations. Refer to the JMH documentation for guidance on how to write benchmarks
-  effectively.
+Use Gradle to build the project:
 
-* Run the method: ``com.home.jmhspace.BenchmarkRunner.main``
+```shell
+./gradlew clean build 
+```
 
-# Results to file
+3. Run Benchmark
+
+```shell
+java -jar build/libs/jmh-playground-1.0-SNAPSHOT-all.jar $ClassName
+```
+
+## Results to file
 
 If you want to write the results to a file, use the JVM option ``-rf <type> -rff <filename>``
 
@@ -42,9 +51,5 @@ Example:
 ```
 
 Available formats: text, csv, scsv, json, latex
-
-# Acknowledgments
-
-* Thanks to the OpenJDK project for developing and maintaining JMH.
 
 Happy benchmarking! 🚀
