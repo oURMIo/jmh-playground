@@ -1,25 +1,21 @@
 plugins {
   id 'java'
-  id 'com.github.johnrengelman.shadow' version '8.1.1'
+  id 'com.github.johnrengelman.shadow' version "${shadowVersion}"
   id 'application'
-  id 'org.jetbrains.kotlin.jvm' version '1.8.22'
-  id 'org.javamodularity.moduleplugin' version '1.8.12'
-  id 'org.openjfx.javafxplugin' version '0.0.13'
-  id 'org.beryx.jlink' version '2.25.0'
+  id 'org.jetbrains.kotlin.jvm' version "${kotlinJvmVersion}"
+  id 'org.javamodularity.moduleplugin' version "${modulePluginVersion}"
+  id 'org.openjfx.javafxplugin' version "${javafxPluginVersion}"
+  id 'org.beryx.jlink' version "${jlinkVersion}"
 }
 
-group 'com.home'
-version '1.0-SNAPSHOT'
+group = 'com.home'
+version = '1.0-SNAPSHOT'
 
 repositories {
   mavenCentral()
 }
 
-ext {
-  junitVersion = '5.10.0'
-}
-
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
   options.encoding = 'UTF-8'
   options.annotationProcessorPath = configurations.annotationProcessor
 }
@@ -29,21 +25,21 @@ application {
 }
 
 javafx {
-  version = '21'
+  version = javaVersion
   modules = ['javafx.controls', 'javafx.fxml']
 }
 
 kotlin {
-  jvmToolchain(17)
+  jvmToolchain(17)  /* Have issue with 21 jdk */
 }
 
 dependencies {
-  implementation("org.openjdk.jmh:jmh-core:${jmhVersion}")
-  implementation("org.openjdk.jmh:jmh-generator-annprocess:${jmhVersion}")
-  annotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:${jmhVersion}")
+  implementation "org.openjdk.jmh:jmh-core:${jmhVersion}"
+  implementation "org.openjdk.jmh:jmh-generator-annprocess:${jmhVersion}"
+  annotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:${jmhVersion}"
 
-  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
 compileJava {

@@ -2,22 +2,38 @@ package com.home.jmhspace.sort;
 
 import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Measurement;
+import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
 
+@State(Scope.Thread)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@Fork(value = 2)
+@Warmup(iterations = 5, time = 500, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 5, time = 500, timeUnit = TimeUnit.MILLISECONDS)
 public class QuickSortBM {
 
-    @Benchmark
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    @Fork(value = 2)
-    @Warmup(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
-    @Measurement(iterations = 5, timeUnit = TimeUnit.MILLISECONDS, time = 5000)
-    public void quickSortBM() {
-        int[] array = {76, 22, 10, 64, 89, 54, 2, 43};
+    private int[] array;
 
-        doQuickSort(array, 0, array.length - 1);
+    @Setup(Level.Iteration)
+    public void setup() {
+        array = new int[]{76, 22, 10, 64, 89, 54, 2, 43};
+    }
+
+    @Benchmark
+    public void quickSortBM(Blackhole bh) {
+        int[] clone = array.clone();
+        doQuickSort(clone, 0, clone.length - 1);
+        bh.consume(clone);
     }
 
     private static void doQuickSort(int[] arr, int low, int high) {
