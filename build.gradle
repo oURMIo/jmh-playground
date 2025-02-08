@@ -2,10 +2,6 @@ plugins {
   id 'java'
   id 'com.github.johnrengelman.shadow' version "${shadowVersion}"
   id 'application'
-  id 'org.jetbrains.kotlin.jvm' version "${kotlinJvmVersion}"
-  id 'org.javamodularity.moduleplugin' version "${modulePluginVersion}"
-  id 'org.openjfx.javafxplugin' version "${javafxPluginVersion}"
-  id 'org.beryx.jlink' version "${jlinkVersion}"
 }
 
 group = 'com.home'
@@ -24,22 +20,16 @@ application {
   mainModule = 'com.home.jmhplayground'
 }
 
-javafx {
-  version = javaVersion
-  modules = ['javafx.controls', 'javafx.fxml']
-}
-
-kotlin {
-  jvmToolchain(17)  /* Have issue with 21 jdk */
-}
-
 dependencies {
-  implementation "org.openjdk.jmh:jmh-core:${jmhVersion}"
-  implementation "org.openjdk.jmh:jmh-generator-annprocess:${jmhVersion}"
-  annotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:${jmhVersion}"
+  implementation("org.openjdk.jmh:jmh-core:$jmhVersion")
+  annotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:$jmhVersion")
 
-  testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
-  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+  testImplementation platform('org.junit:junit-bom:5.10.0')
+  testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+  useJUnitPlatform()
 }
 
 compileJava {
@@ -49,22 +39,6 @@ compileJava {
 configurations {
   benchmarks
   annotationProcessor
-}
-
-test {
-  useJUnitPlatform()
-}
-
-jlink {
-  imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
-  options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-  launcher {
-    name = 'app'
-  }
-}
-
-jlinkZip {
-  group = 'distribution'
 }
 
 shadowJar {
