@@ -40,6 +40,12 @@ Use Gradle to build the project:
 java -jar build/libs/jmh-playground-1.0-SNAPSHOT-all.jar $ClassName
 ```
 
+Or you can run benchmark with IDEA:
+
+```
+com.home.jmhspace.BenchmarkRunner#main()
+```
+
 ## Results to file
 
 If you want to write the results to a file, use the JVM option ``-rf <type> -rff <filename>``
