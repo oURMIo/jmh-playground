@@ -20,6 +20,9 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
+      - name: Grant execute permission for Gradlew
+        run: chmod +x ./gradlew
+
       - name: Cache
         uses: actions/cache@v3
         with:
@@ -27,12 +30,7 @@ jobs:
           key: gradle-${{ hashFiles('**/build.gradle*') }}
           restore-keys: |
             gradle-
-
-      - name: Grant execute permission for Gradlew
-        run: chmod +x ./gradlew
-
-      - name: Build and Generate Coverage Report
-        run: ./gradlew clean test jacocoTestReport
+      - run: ./gradlew clean test jacocoTestReport
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
