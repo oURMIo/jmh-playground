@@ -2,6 +2,7 @@ plugins {
   id 'java'
   id 'com.github.johnrengelman.shadow' version "${shadowVersion}"
   id 'application'
+  id 'jacoco'
 }
 
 group = 'com.home'
@@ -30,6 +31,7 @@ dependencies {
 
 test {
   useJUnitPlatform()
+  finalizedBy jacocoTestReport
 }
 
 compileJava {
@@ -39,6 +41,24 @@ compileJava {
 configurations {
   benchmarks
   annotationProcessor
+}
+
+jacoco {
+  toolVersion = "0.8.12"
+}
+
+tasks.jacocoTestReport {
+  dependsOn test
+
+  sourceDirectories.setFrom(files("src/main/java"))
+  classDirectories.setFrom(files("build/classes/java/main"))
+  executionData.setFrom(files("build/jacoco/test.exec"))
+
+  reports {
+    xml.required = true
+    csv.required = false
+    html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+  }
 }
 
 shadowJar {
