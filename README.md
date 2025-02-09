@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/ourmio/jmh-playground/branch/main/graph/badge.svg?token=jotejZaRVK)](https://app.codecov.io/github/ourmio/jmh-playground)
+
 # JMH Playground
 
 JMH Playground is a project designed for benchmarking various algorithms and code snippets.
